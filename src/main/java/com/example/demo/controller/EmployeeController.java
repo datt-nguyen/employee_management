@@ -15,34 +15,33 @@ public class EmployeeController {
         this.service = service;
     }
 
-    // Hiển thị tất cả
+//    Add new
     @GetMapping
     public String listEmployees(Model model) {
         model.addAttribute("employees", service.getAll());
         return "employee_list";
     }
-
-    // Form thêm mới
+    // Show All
     @GetMapping("/new")
     public String showForm(Model model) {
         model.addAttribute("employee", new Employee());
         return "employee_form";
     }
-
+// Save
     @PostMapping("/save")
     public String save(@ModelAttribute("employee") Employee employee) {
         service.save(employee);
         return "redirect:/employees";
     }
 
-    // Sửa thông tin
+    // Change Information
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("employee", service.getById(id));
         return "employee_form";
     }
 
-    // Thay đổi trạng thái
+    // Change Status
     @GetMapping("/status/{id}")
     public String toggleStatus(@PathVariable("id") Integer id) {
         Employee emp = service.getById(id);
